@@ -1,0 +1,1 @@
+This folder represents a copy of file structure of 'secured' folder
