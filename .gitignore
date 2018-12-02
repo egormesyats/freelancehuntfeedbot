@@ -1,5 +1,6 @@
 # Don't commit secured info
 secured
+bot.db
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
