@@ -1,7 +1,7 @@
 import telebot
 import requests
 import json
-from db import launch, User
+from db import launch, User, Skill
 from log import log, log_incoming_command
 from sign import sign
 from api.req_skills import req_skills
@@ -45,6 +45,16 @@ def handle_help(message):
   chat_id = message.chat.id
   bot.send_chat_action(chat_id, 'typing')
   bot.send_message(chat_id, HELP_MESSAGE)
+
+@bot.message_handler(commands=['skills'])
+def handle_skills(message):
+  log_incoming_command(message)
+  chat_id = message.chat.id
+  bot.send_chat_action(chat_id, 'typing')
+  msg = 'Available skills list:\n\n'
+  for skill in Skill.select():
+    msg = msg + '/skill' + str(skill.id) + ' - ' + skill.name + '\n'
+  bot.send_message(chat_id, msg)
 
 @bot.message_handler(func=lambda message: regex_skill(message.text))
 def handle_skills_regex(message):
